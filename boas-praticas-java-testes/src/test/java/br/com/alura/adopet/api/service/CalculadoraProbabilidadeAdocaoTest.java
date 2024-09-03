@@ -14,19 +14,18 @@ import org.junit.jupiter.api.Test;
 class CalculadoraProbabilidadeAdocaoTest {
 
     private CalculadoraProbabilidadeAdocao calculadora;
+    private static Abrigo ABRIGO = new Abrigo(new CadastroAbrigoDto("Abrigo feliz", "94999999999", "abrigofeliz@email.com.br"));
 
     @BeforeEach
     void setUp() {
         calculadora = new CalculadoraProbabilidadeAdocao();
     }
 
-
     @Test
-    @DisplayName("Cenario de gato com alta probabilidade")
-    void cenarioGato01ProbabilidadeAlta() {
+    @DisplayName("Cenario de gato com alta probabilidade de adocão")
+    void cenarioProbabilidadeAlta01() {
         // Cenario: Gato com peso baixo e idade alta
-        Abrigo abrigo = new Abrigo(new CadastroAbrigoDto("Abrigo feliz", "94999999999", "abrigofeliz@email.com.br"));
-        Pet pet = new Pet(new CadastroPetDto(TipoPet.GATO, "Miau", "Siames", 3, "Cinza", 4.0f), abrigo);
+        Pet pet = new Pet(new CadastroPetDto(TipoPet.GATO, "Miau", "Siames", 3, "Cinza", 4.0f), ABRIGO);
 
         ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
 
@@ -34,35 +33,10 @@ class CalculadoraProbabilidadeAdocaoTest {
     }
 
     @Test
-    @DisplayName("Cenario de gato com media probabilidade")
-    void cenarioGato02ProbabilidadeMedia() {
-        // Cenario: Gato com peso baixo e idade alta
-        Abrigo abrigo = new Abrigo(new CadastroAbrigoDto("Abrigo feliz", "94999999999", "abrigofeliz@email.com.br"));
-        Pet pet = new Pet(new CadastroPetDto(TipoPet.GATO, "Miau", "Siames", 7, "Cinza", 4.0f), abrigo);
-
-        ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
-
-        Assertions.assertEquals(ProbabilidadeAdocao.MEDIA, probabilidade);
-    }
-
-    @Test
-    @DisplayName("Cenario de gato com baixa probabilidade")
-    void cenarioGato03ProbabilidadeBaixa() {
-        // Cenario: Gato com peso alto e idade alta
-        Abrigo abrigo = new Abrigo(new CadastroAbrigoDto("Abrigo feliz", "94999999999", "abrigofeliz@email.com.br"));
-        Pet pet = new Pet(new CadastroPetDto(TipoPet.GATO, "Miau", "Siames", 10, "Cinza", 7.0f), abrigo);
-
-        ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
-
-        Assertions.assertEquals(ProbabilidadeAdocao.BAIXA, probabilidade);
-    }
-
-    @Test
-    @DisplayName("Cenario de cachorro com alta probabilidade")
-    void cenarioCachorro01ProbabilidadeAlta() {
+    @DisplayName("Cenario de cachorro com alta probabilidade de adocão")
+    void cenarioProbabilidadeAlta02() {
         // Cenario: Cachorro com peso alto e idade baixa
-        Abrigo abrigo = new Abrigo(new CadastroAbrigoDto("Abrigo feliz", "94999999999", "abrigofeliz@email.com.br"));
-        Pet pet = new Pet(new CadastroPetDto(TipoPet.CACHORRO, "Rex", "Dalmata", 1, "Branco", 18.0F), abrigo);
+        Pet pet = new Pet(new CadastroPetDto(TipoPet.CACHORRO, "Rex", "Dalmata", 1, "Branco", 18.0F), ABRIGO);
 
         ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
 
@@ -70,11 +44,10 @@ class CalculadoraProbabilidadeAdocaoTest {
     }
 
     @Test
-    @DisplayName("Cenario de cachorro com media probabilidade")
-    void cenarioCachorro02ProbabilidadeMedia() {
-        // Cenario: Cachorro com peso baixo e idade media
-        Abrigo abrigo = new Abrigo(new CadastroAbrigoDto("Abrigo feliz", "94999999999", "abrigofeliz@email.com.br"));
-        Pet pet = new Pet(new CadastroPetDto(TipoPet.CACHORRO, "Rex", "Dalmata", 5, "Branco", 10.0F), abrigo);
+    @DisplayName("Cenario de gato com media probabilidade de adocão")
+    void cenarioGatoProbabilidadeMedia01() {
+        // Cenario: Gato com peso baixo e idade alta
+        Pet pet = new Pet(new CadastroPetDto(TipoPet.GATO, "Miau", "Siames", 7, "Cinza", 4.0f), ABRIGO);
 
         ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
 
@@ -82,16 +55,36 @@ class CalculadoraProbabilidadeAdocaoTest {
     }
 
     @Test
-    @DisplayName("Cenario de cachorro com baixa probabilidade")
-    void cenarioCachorro03ProbabilidadeBaixa() {
-        // Cenario: Cachorro com peso alto e idade alta
-        Abrigo abrigo = new Abrigo(new CadastroAbrigoDto("Abrigo feliz", "94999999999", "abrigofeliz@email.com.br"));
-        Pet pet = new Pet(new CadastroPetDto(TipoPet.CACHORRO, "Rex", "Dalmata", 9, "Branco", 18.0F), abrigo);
+    @DisplayName("Cenario de cachorro com media probabilidade de adocão")
+    void cenarioProbabilidadeMedia02() {
+        // Cenario: Cachorro com peso baixo e idade media
+        Pet pet = new Pet(new CadastroPetDto(TipoPet.CACHORRO, "Rex", "Dalmata", 5, "Branco", 10.0F), ABRIGO);
+
+        ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
+
+        Assertions.assertEquals(ProbabilidadeAdocao.MEDIA, probabilidade);
+    }
+
+    @Test
+    @DisplayName("Cenario de gato com baixa probabilidade de adocão")
+    void cenarioProbabilidadeBaixa01() {
+        // Cenario: Gato com peso alto e idade alta
+        Pet pet = new Pet(new CadastroPetDto(TipoPet.GATO, "Miau", "Siames", 10, "Cinza", 11.0f), ABRIGO);
 
         ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
 
         Assertions.assertEquals(ProbabilidadeAdocao.BAIXA, probabilidade);
     }
 
+    @Test
+    @DisplayName("Cenario de cachorro com baixa probabilidade de adocão")
+    void cenarioProbabilidadeBaixa03() {
+        // Cenario: Cachorro com peso alto e idade alta
+        Pet pet = new Pet(new CadastroPetDto(TipoPet.CACHORRO, "Rex", "Dalmata", 12, "Branco", 18.0F), ABRIGO);
+
+        ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
+
+        Assertions.assertEquals(ProbabilidadeAdocao.BAIXA, probabilidade);
+    }
 
 }
