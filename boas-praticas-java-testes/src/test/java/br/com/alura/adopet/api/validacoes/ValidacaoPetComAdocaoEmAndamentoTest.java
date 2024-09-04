@@ -25,11 +25,12 @@ class ValidacaoPetComAdocaoEmAndamentoTest {
     @InjectMocks
     private ValidacaoPetComAdocaoEmAndamento validacao;
 
+    @Mock
+    private SolicitacaoAdocaoDto dto;
+
     @Test
     @DisplayName("Cenario de pet com adocao em andamento")
     void cenarioPetComAdocaoEmAndamento() {
-        SolicitacaoAdocaoDto dto = new SolicitacaoAdocaoDto(1L, 1L, "Novo mascote");
-
         when(adocaoRepository.existsByPetIdAndStatus(anyLong(), any())).thenReturn(true);
 
         assertThrows(ValidacaoException.class, () -> validacao.validar(dto), "Pet já está aguardando avaliação para ser adotado!");
@@ -38,8 +39,6 @@ class ValidacaoPetComAdocaoEmAndamentoTest {
     @Test
     @DisplayName("Cenario de pet que não tenha adocao em andamento")
     void cenarioPetSemAdocaoEmAndamento() {
-        SolicitacaoAdocaoDto dto = new SolicitacaoAdocaoDto(1L, 1L, "Novo mascote");
-
         when(adocaoRepository.existsByPetIdAndStatus(anyLong(), any())).thenReturn(false);
 
         assertDoesNotThrow(() -> validacao.validar(dto));
