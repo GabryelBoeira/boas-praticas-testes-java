@@ -36,6 +36,14 @@ public class Adocao {
         this.data = LocalDateTime.now();
     }
 
+    public Adocao(Tutor tutor, Pet pet, String motivo, StatusAdocao status) {
+        this.tutor = tutor;
+        this.pet = pet;
+        this.motivo = motivo;
+        this.status = status;
+        this.data = LocalDateTime.now();
+    }
+
     public Adocao(){}
 
     @Override

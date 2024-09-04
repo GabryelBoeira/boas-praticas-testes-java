@@ -39,6 +39,13 @@ public class Tutor {
         this.email = dto.email();
     }
 
+    public Tutor(Long id, String nome, String telefone, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
