@@ -7,3 +7,7 @@
 - Escreva testes de unidade com JUnit.
 - Simule comportamentos nos testes com a biblioteca Mockito.
 - Aprenda a testar classes service e controller do Spring.
+
+[Certificado de conclusão do curso](https://cursos.alura.com.br/certificate/e3ff71b6-9360-42fb-a9ae-26be441a445b?lang)
+
+**_ Curso Concluido _**

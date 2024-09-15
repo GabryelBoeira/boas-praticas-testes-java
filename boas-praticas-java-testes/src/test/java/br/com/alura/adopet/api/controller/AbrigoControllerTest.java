@@ -1,7 +1,6 @@
 package br.com.alura.adopet.api.controller;
 
 import br.com.alura.adopet.api.dto.CadastroAbrigoDto;
-import br.com.alura.adopet.api.dto.SolicitacaoAdocaoDto;
 import br.com.alura.adopet.api.service.AbrigoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
