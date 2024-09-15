@@ -32,7 +32,7 @@ class AbrigoControllerTest {
     private JacksonTester<CadastroAbrigoDto> jsonDto;
 
     @Test
-    @DisplayName("Solicitar adocão com erro de validação, codigo esperado 400")
+    @DisplayName("Cadastrar abrigo com erro de validação, esperado 400")
     void cadastrarAbrigoComErroDeValidacao() throws Exception {
         String json = "{}";
 
@@ -46,7 +46,7 @@ class AbrigoControllerTest {
     }
 
     @Test
-    @DisplayName("Solicitar adocão com erro de validação no email, codigo esperado 400")
+    @DisplayName("Cadastrar abrigo com email invalido, esperado 400")
     void cadastrarAbrigoComErroDeValidacaoComEmailInvalido() throws Exception {
         CadastroAbrigoDto dto = new CadastroAbrigoDto("teste", "41999999999", "emailinvalido");
 
@@ -60,7 +60,7 @@ class AbrigoControllerTest {
     }
 
     @Test
-    @DisplayName("Solicitar adocão com sucesso, codigo esperado 200")
+    @DisplayName("Cadastrar abrigo com campos obrigatórios, esperado 200")
     void cadastrarAbrigoComSucesso() throws Exception {
         CadastroAbrigoDto dto = new CadastroAbrigoDto("teste", "41999999999", "teste@gmail.com");
 
