@@ -39,7 +39,7 @@ class AbrigoControllerTest {
         var response = mockMvc.perform(
                 post("/abrigos")
                         .content(json)
-                        .contentType("application/json")
+                        .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
 
         assertEquals(400, response.getStatus());
