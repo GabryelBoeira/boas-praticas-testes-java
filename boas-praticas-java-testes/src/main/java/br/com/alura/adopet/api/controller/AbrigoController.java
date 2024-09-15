@@ -37,7 +37,7 @@ public class AbrigoController {
     public ResponseEntity<String> cadastrar(@RequestBody @Valid CadastroAbrigoDto dto) {
         try {
             abrigoService.cadatrar(dto);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok("Abrigo cadatrado com sucesso!");
         } catch (ValidacaoException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }

@@ -1,15 +1,17 @@
 package br.com.alura.adopet.api.controller;
 
+import br.com.alura.adopet.api.dto.CadastroAbrigoDto;
+import br.com.alura.adopet.api.dto.SolicitacaoAdocaoDto;
 import br.com.alura.adopet.api.service.AbrigoService;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureJsonTesters
 class AbrigoControllerTest {
 
     @Autowired
@@ -24,6 +27,9 @@ class AbrigoControllerTest {
 
     @MockBean
     private AbrigoService service;
+
+    @Autowired
+    private JacksonTester<CadastroAbrigoDto> jsonDto;
 
     @Test
     @DisplayName("Solicitar adocão com erro de validação, codigo esperado 400")
@@ -42,13 +48,12 @@ class AbrigoControllerTest {
     @Test
     @DisplayName("Solicitar adocão com erro de validação no email, codigo esperado 400")
     void cadastrarAbrigoComErroDeValidacaoComEmailInvalido() throws Exception {
-        String json = """
-                {"nome":"teste","telefone":"41999999999","email":"emailinvalido"}""";
+        CadastroAbrigoDto dto = new CadastroAbrigoDto("teste", "41999999999", "emailinvalido");
 
         var response = mockMvc.perform(
                 post("/abrigos")
-                        .content(json)
-                        .contentType("application/json")
+                        .content(jsonDto.write(dto).getJson())
+                        .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
 
         assertEquals(400, response.getStatus());
@@ -57,15 +62,15 @@ class AbrigoControllerTest {
     @Test
     @DisplayName("Solicitar adocão com sucesso, codigo esperado 200")
     void cadastrarAbrigoComSucesso() throws Exception {
-        String json = """
-                {"nome":"teste","telefone":"41999999999","email":"teste@gmail.com"}""";
+        CadastroAbrigoDto dto = new CadastroAbrigoDto("teste", "41999999999", "teste@gmail.com");
 
         var response = mockMvc.perform(
                 post("/abrigos")
-                        .content(json)
-                        .contentType("application/json")
+                        .content(jsonDto.write(dto).getJson())
+                        .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
 
         assertEquals(200, response.getStatus());
+        assertEquals("Abrigo cadatrado com sucesso!", response.getContentAsString());
     }
 }
