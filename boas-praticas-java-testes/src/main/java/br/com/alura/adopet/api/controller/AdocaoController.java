@@ -20,7 +20,7 @@ public class AdocaoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> solicitar(@RequestBody @Valid SolicitacaoAdocaoDto dto) {
+    public ResponseEntity<String> solicitar(@Valid @RequestBody SolicitacaoAdocaoDto dto) {
         try {
             this.adocaoService.solicitar(dto);
             return ResponseEntity.ok("Adoção solciitada com sucesso!");
